@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/12/2026                  *
- * Last Edited 10/20/2026              *
+ * Last Edited 10/27/2026              *
  * Classes that define a tile          *
  ***************************************/
 
@@ -24,6 +24,15 @@ struct Edge
     Vector2 p2;
 };
 
+
+struct Triangle 
+{
+    Vector2 p1;
+    Vector2 p2;
+    Vector2 p3;
+};
+
+
 class Tile 
 {
     public:
@@ -35,9 +44,6 @@ class Tile
         void Rotate(float a);
         void Scale(float s);
 
-        void SetColor(Color c)
-            { tilecolor = c; }
-
         std::vector<Edge> GetEdges() const
             { return edgelist; }
 
@@ -45,16 +51,23 @@ class Tile
         Vector2 GetCenter() const 
             { return {center.x, center.y}; }
 
-        Color GetColor(Color c) const 
-            { return tilecolor; }
-
         // function used for testing, prints the nth edge of the tile 
         void PrintEdge(int32_t n) const;
+
+        // triangulation functions 
+
+        void SetTriangulation(const std::vector<Triangle> & tr);
+        // generate triangulation, only gaurunteed to work for convex tiles 
+        void ConvexTriangulation();
+        std::vector<Triangle> GetTriangulation() const 
+            { return triangulation; }
 
     private:
         std::vector<Edge> edgelist;
         Vector2 center = {0.0,0.0}; 
-        Color tilecolor = WHITE;
+
+        // used to render the tile as a block of color 
+        std::vector<Triangle> triangulation; 
 };
 
 // returns a unit square centered at (0,0)

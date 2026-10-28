@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/13/2026                  *
- * Last Edited 10/20/2026              *
+ * Last Edited 10/27/2026              *
  * Implementation for tile class       *
  ***************************************/
 
@@ -18,9 +18,11 @@ Tile::Tile(const Tile & rhs)
 
     vector<Edge> temp_edgelist = rhs.GetEdges();
     Vector2 temp_center = rhs.GetCenter();
+    vector<Triangle> temp_triangulation = rhs.GetTriangulation();
 
     edgelist = temp_edgelist;
     center = temp_center;
+    triangulation = temp_triangulation;
 }
 
 void Tile::Translate(Vector2 vt)
@@ -31,6 +33,13 @@ void Tile::Translate(Vector2 vt)
     {
         edgelist[i].p1 = Vector2Add(edgelist[i].p1, vt);
         edgelist[i].p2 = Vector2Add(edgelist[i].p2, vt);
+    }
+
+    for (size_t i = 0; i < triangulation.size(); ++i)
+    {
+        triangulation[i].p1 = Vector2Add(triangulation[i].p1, vt);
+        triangulation[i].p2 = Vector2Add(triangulation[i].p2, vt);
+        triangulation[i].p3 = Vector2Add(triangulation[i].p3, vt);
     }
 }
 
@@ -50,6 +59,13 @@ void Tile::Rotate(float a)
         edgelist[i].p2 = Vector2Subtract(edgelist[i].p2, offset);
     }
 
+    for (size_t i = 0; i < triangulation.size(); ++i)
+    {
+        triangulation[i].p1 = Vector2Subtract(triangulation[i].p1, offset);
+        triangulation[i].p2 = Vector2Subtract(triangulation[i].p2, offset);
+        triangulation[i].p3 = Vector2Subtract(triangulation[i].p3, offset);        
+    }
+
     // rotate points 
     for (size_t i = 0; i < edgelist.size(); ++i)
     {
@@ -57,11 +73,25 @@ void Tile::Rotate(float a)
         edgelist[i].p2 = Vector2Rotate(edgelist[i].p2, a);
     }
 
+    for (size_t i = 0; i < triangulation.size(); ++i)
+    {
+        triangulation[i].p1 = Vector2Rotate(triangulation[i].p1, a);
+        triangulation[i].p2 = Vector2Rotate(triangulation[i].p2, a);
+        triangulation[i].p3 = Vector2Rotate(triangulation[i].p3, a);
+    }
+
     // move back to original center 
     for (size_t i = 0; i < edgelist.size(); ++i)
     {
         edgelist[i].p1 = Vector2Add(edgelist[i].p1, offset);
         edgelist[i].p2 = Vector2Add(edgelist[i].p2, offset);
+    }
+
+    for (size_t i = 0; i < edgelist.size(); ++i)
+    {
+        triangulation[i].p1 = Vector2Add(triangulation[i].p1, offset);
+        triangulation[i].p2 = Vector2Add(triangulation[i].p2, offset);
+        triangulation[i].p3 = Vector2Add(triangulation[i].p3, offset);                
     }
 }
 
@@ -73,6 +103,13 @@ void Tile::Scale(float s)
     {
         edgelist[i].p1 = Vector2Scale(edgelist[i].p1, s);
         edgelist[i].p2 = Vector2Scale(edgelist[i].p2, s);
+    }
+
+    for (size_t i = 0; i < triangulation.size(); ++i)
+    {
+        triangulation[i].p1 = Vector2Scale(triangulation[i].p1, s);
+        triangulation[i].p2 = Vector2Scale(triangulation[i].p2, s);
+        triangulation[i].p3 = Vector2Scale(triangulation[i].p3, s);
     }
 }
 
@@ -96,5 +133,35 @@ Tile SquareTile()
     edgelist.push_back({ {0.5,0.5},   {0.5,-0.5} });
     edgelist.push_back({ {0.5,-0.5},  {-0.5,-0.5} });
 
-    return Tile(edgelist, center);
+    Tile temp(edgelist, center);
+    // generate triangulation
+    temp.ConvexTriangulation();
+
+    return temp;
+}
+
+
+void Tile::SetTriangulation(const std::vector<Triangle> & tr)
+{
+    for (const auto & t : tr)
+    {
+        triangulation.push_back(t);
+    }
+}
+
+
+void Tile::ConvexTriangulation()
+{
+    // for each edge, add a triangle between the edge and the center 
+    // of the tile 
+
+    // since our tile is convex, these triangles are contained entirely within
+    // the tile. 
+
+    // additionally, these triangles span the entire tile 
+
+    for (const auto & e : edgelist)
+    {
+        triangulation.push_back({e.p1, e.p2, center});
+    }
 }
