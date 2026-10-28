@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/12/2026                  *
- * Last Edited 10/27/2026              *
+ * Last Edited 10/28/2026              *
  * Code that renders the tiling        *
  ***************************************/
 
@@ -22,12 +22,13 @@ int main(int argc, char ** argv)
     vector<Tile> tiles; 
 
     // function call that generates the tiling
-    DiamondTiling(tiles, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
+    DiamondTiling(tiles, 60, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     ColorLut lut;
     lut.append({10,185,25,255});
     lut.append({25,165,85,255});
     lut.append({50,155,125,255});
+    lut.append({0,0,0,255});
     lut.append({35,120,160,255});
     lut.append({25,35,185,255});
 

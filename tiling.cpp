@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/13/2026                  *
- * Last Edited 10/27/2026              *
+ * Last Edited 10/28/2026              *
  * Implementation for tiling functions *
  ***************************************/
 
@@ -55,15 +55,15 @@ void DiamondTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width
     const int32_t NUM_TILES_Y = ceil((float)screen_height / DIAGONAL);
 
     // slap tiles into list of tiles 
-    for (int32_t i = 0; i < NUM_TILES_X; ++i)
+    for (int32_t i = 0; i <= NUM_TILES_X; ++i)
     {
-        for (int32_t j = 0; j < NUM_TILES_Y * 2; ++j)
+        for (int32_t j = 0; j <= NUM_TILES_Y * 2; ++j)
         {
             Tile temp(BaseTile);
 
             // odd tiles are placed on an offset 
             // even tiles don't have this offset 
-            temp.Translate({(i * DIAGONAL) + (DIAGONAL / 2 * (j % 2 == 1)), j * DIAGONAL / 2.0});
+            temp.Translate({(i * DIAGONAL) + (DIAGONAL / 2 * (j % 2 == 1)), j * DIAGONAL / 2});
 
             tiles.push_back(temp);
         }
