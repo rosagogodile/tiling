@@ -8,8 +8,8 @@
 #include "tile.h"
 #include "colorlut.h"
 
-#define SCREEN_WIDTH 750
-#define SCREEN_HEIGHT 500 
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600 
 
 using namespace std;
 
@@ -22,19 +22,24 @@ int main(int argc, char ** argv)
     vector<Tile> tiles; 
 
     // function call that generates the tiling
-    BasicTiling(tiles, 50.0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    BasicTiling(tiles, 30, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     ColorLut lut;
-    lut.append({0,255,0,255});
-    lut.append({0,175,155,255});
-    lut.append({0,0,255,255});
+    lut.append({10,185,25,255});
+    lut.append({25,165,85,255});
+    lut.append({50,155,125,255});
+    lut.append({35,120,160,255});
+    lut.append({25,35,185,255});
 
     while (!WindowShouldClose())
     {
         BeginDrawing();
             ClearBackground(WHITE);
 
-            int32_t count = 0;
+            double count = 0.0;
+
+            const double INTERPOLATE_MAX = (double)lut.GetSize() - 1;
+            const double ITERATION_VALUE = INTERPOLATE_MAX / (double)tiles.size();
 
             // draw each tile
             for (const auto & t : tiles)
@@ -46,9 +51,10 @@ int main(int argc, char ** argv)
                 vector<Triangle> triangles = t.GetTriangulation();
 
                 // get interpolated color
-                const double interpolation_value = ((double)count / lut.GetSize()) * triangles.size();
+                // const double interpolation_value = ((double)count / lut.GetSize()) * triangles.size();
+                // const double interpolation_value = (double)count * (double)lut.GetSize() / (double)tiles.size();
+                const double interpolation_value = count;
                 Color c = lut(interpolation_value);
-                // Color c = lut[count];
 
                 // draw triangles
                 for (const auto & tr : triangles)
@@ -56,7 +62,7 @@ int main(int argc, char ** argv)
                     DrawTriangle(tr.p1, tr.p2, tr.p3, c);
                 }
 
-                count++;
+                count += ITERATION_VALUE;
             }
         EndDrawing();
     }
