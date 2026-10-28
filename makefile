@@ -1,10 +1,9 @@
-# Rosa Knowles 
 # Created 10/12/2026
-# Last Edited 10/12/2026
+# Last Edited 10/27/2026
 
 TARGET := out
 
-CPP_FILES := tile.cpp tiling.cpp main.cpp
+CPP_FILES := tile.cpp colorlut.cpp tiling.cpp main.cpp
 
 LINKED_LIBS := -lraylib -lopengl32 -lgdi32 -lwinmm
 VERSION := -std=c++23
