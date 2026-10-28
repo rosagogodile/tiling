@@ -4,6 +4,9 @@
  * Classes that define a tile          *
  ***************************************/
 
+#ifndef TILE_H
+#define TILE_H
+
 #include <vector>
 #include "raylib.h"
 #include "raymath.h"
@@ -78,3 +81,5 @@ Tile SquareTile();
 // generates a tiling using a square
 // note: `scalar` ideally should divide `screen_width` and `screen_height`
 void BasicTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width, int32_t screen_height);
+
+#endif
