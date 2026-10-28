@@ -81,5 +81,7 @@ Tile SquareTile();
 // generates a tiling using a square
 // note: `scalar` ideally should divide `screen_width` and `screen_height`
 void BasicTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width, int32_t screen_height);
+// generates a tiling using a square rotated 45 degrees 
+void DiamondTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width, int32_t screen_height);
 
 #endif

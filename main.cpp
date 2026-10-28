@@ -8,8 +8,8 @@
 #include "tile.h"
 #include "colorlut.h"
 
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 600 
+#define SCREEN_WIDTH 500
+#define SCREEN_HEIGHT 500 
 
 using namespace std;
 
@@ -22,7 +22,7 @@ int main(int argc, char ** argv)
     vector<Tile> tiles; 
 
     // function call that generates the tiling
-    BasicTiling(tiles, 30, SCREEN_WIDTH, SCREEN_HEIGHT);
+    DiamondTiling(tiles, 50, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     ColorLut lut;
     lut.append({10,185,25,255});
@@ -51,10 +51,7 @@ int main(int argc, char ** argv)
                 vector<Triangle> triangles = t.GetTriangulation();
 
                 // get interpolated color
-                // const double interpolation_value = ((double)count / lut.GetSize()) * triangles.size();
-                // const double interpolation_value = (double)count * (double)lut.GetSize() / (double)tiles.size();
-                const double interpolation_value = count;
-                Color c = lut(interpolation_value);
+                Color c = lut(count);
 
                 // draw triangles
                 for (const auto & tr : triangles)

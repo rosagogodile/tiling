@@ -37,3 +37,35 @@ void BasicTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width, 
         }
     }
 }
+
+
+void DiamondTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width, int32_t screen_height)
+{
+    // empty the tile list just in case :3 
+    tiles = {};
+
+    // initialize the tile 
+    Tile BaseTile = SquareTile();
+    BaseTile.Rotate(0.7853982); // 45 degree rotation 
+    BaseTile.Scale(scalar);
+
+    const float DIAGONAL = sqrt(2) * scalar;
+
+    const int32_t NUM_TILES_X = ceil((float)screen_width / DIAGONAL);
+    const int32_t NUM_TILES_Y = ceil((float)screen_height / DIAGONAL);
+
+    // slap tiles into list of tiles 
+    for (int32_t i = 0; i < NUM_TILES_X; ++i)
+    {
+        for (int32_t j = 0; j < NUM_TILES_Y * 2; ++j)
+        {
+            Tile temp(BaseTile);
+
+            // odd tiles are placed on an offset 
+            // even tiles don't have this offset 
+            temp.Translate({(i * DIAGONAL) + (DIAGONAL / 2 * (j % 2 == 1)), j * DIAGONAL / 2.0});
+
+            tiles.push_back(temp);
+        }
+    }
+}
