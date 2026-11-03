@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/13/2026                  *
- * Last Edited 10/27/2026              *
+ * Last Edited 11/3/2026               *
  * Implementation for tile class       *
  ***************************************/
 
@@ -163,5 +163,35 @@ void Tile::ConvexTriangulation()
     for (const auto & e : edgelist)
     {
         triangulation.push_back({e.p1, e.p2, center});
+    }
+}
+
+
+void DrawTiling(Image * img, const std::vector<Tile> & tiles, ColorLut & lut, int32_t width, int32_t height)
+{
+    using namespace std; 
+
+    // values used for interpolating between colors of the tiles 
+    double count = 0.0;
+    const double INTERPOLATE_MAX = (double)lut.GetSize() - 1;
+    const double ITERATION_VALUE = INTERPOLATE_MAX / (double)tiles.size();
+
+    vector<Triangle> triangles;
+
+    // draw each tile 
+    for (const auto & t : tiles)
+    {
+        triangles = t.GetTriangulation();
+
+        // get interpolated color 
+        Color c = lut(count);
+
+        // draw triangles in image 
+        for (const auto & tr : triangles)
+        {
+            ImageDrawTriangle(img, tr.p1, tr.p2, tr.p3, c);
+        }
+
+        count += ITERATION_VALUE;
     }
 }

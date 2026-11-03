@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/12/2026                  *
- * Last Edited 10/28/2026              *
+ * Last Edited 11/3/2026               *
  * Code that renders the tiling        *
  ***************************************/
 
@@ -32,39 +32,25 @@ int main(int argc, char ** argv)
     lut.append({35,120,160,255});
     lut.append({25,35,185,255});
 
+    Image tiling = GenImageColor(SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
+    DrawTiling(&tiling, tiles, lut, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+    Texture2D tilingtexture = LoadTextureFromImage(tiling);
+
     while (!WindowShouldClose())
     {
         BeginDrawing();
             ClearBackground(WHITE);
 
-            double count = 0.0;
+            DrawTexture(tilingtexture, 0, 0, WHITE);
 
-            const double INTERPOLATE_MAX = (double)lut.GetSize() - 1;
-            const double ITERATION_VALUE = INTERPOLATE_MAX / (double)tiles.size();
-
-            // draw each tile
-            for (const auto & t : tiles)
-            {
-                // vector<Edge> edges = t.GetEdges();
-                // for (const auto & e : edges)
-                //     DrawLineEx(e.p1, e.p2, 1, BLACK);
-
-                vector<Triangle> triangles = t.GetTriangulation();
-
-                // get interpolated color
-                Color c = lut(count);
-
-                // draw triangles
-                for (const auto & tr : triangles)
-                {
-                    DrawTriangle(tr.p1, tr.p2, tr.p3, c);
-                }
-
-                count += ITERATION_VALUE;
-            }
         EndDrawing();
     }
 
     CloseWindow();
+
+    UnloadImage(tiling);
+    UnloadTexture(tilingtexture);
+
     return 0;
 }

@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/12/2026                  *
- * Last Edited 10/27/2026              *
+ * Last Edited 11/3/2026               *
  * Classes that define a tile          *
  ***************************************/
 
@@ -12,6 +12,7 @@
 #include "raymath.h"
 #include <cstdint>
 #include <iostream>
+#include "colorlut.h"
 
 
 // TODO:
@@ -72,6 +73,12 @@ class Tile
         // used to render the tile as a block of color 
         std::vector<Triangle> triangulation; 
 };
+
+
+// function that draws a tiling into an image 
+// assumes each tile has a triangulation 
+void DrawTiling(Image * img, const std::vector<Tile> & tiles, ColorLut & lut, int32_t width, int32_t height);
+
 
 // returns a unit square centered at (0,0)
 Tile SquareTile();
