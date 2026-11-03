@@ -167,7 +167,7 @@ void Tile::ConvexTriangulation()
 }
 
 
-void DrawTiling(Image * img, const std::vector<Tile> & tiles, ColorLut & lut, int32_t width, int32_t height)
+void DrawTiling(Image * img, const std::vector<Tile> & tiles, ColorLut & lut)
 {
     using namespace std; 
 

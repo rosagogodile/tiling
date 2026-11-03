@@ -8,34 +8,49 @@
 #include "tile.h"
 #include "colorlut.h"
 
-#define SCREEN_WIDTH 500
-#define SCREEN_HEIGHT 500 
+#define IMG_WIDTH 3840
+#define IMG_HEIGHT 3840
+
+#define SCALE 8
+
+#define SCREEN_WIDTH IMG_WIDTH / SCALE
+#define SCREEN_HEIGHT IMG_HEIGHT / SCALE
 
 using namespace std;
+
+void PrintKeyboardCommands();
 
 int main(int argc, char ** argv)
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "tiling experiment");
-    cout << "q                          Save Tiling To File.\n";
     SetTargetFPS(60);
 
     // initialize vector that stores each tile 
     vector<Tile> tiles; 
 
     // function call that generates the tiling
-    DiamondTiling(tiles, 60, SCREEN_WIDTH, SCREEN_HEIGHT);
+    DiamondTiling(tiles, 60 * SCALE, IMG_WIDTH, IMG_HEIGHT);
 
     ColorLut lut;
-    lut.append({160,217,153,255});
-    lut.append({25,165,85,255});
-    lut.append({50,155,125,255});
-    lut.append({35,120,160,255});
-    lut.append({25,35,185,255});
+    // lut.append({160,217,153,255});
+    // lut.append({25,165,85,255});
+    // lut.append({50,155,125,255});
+    // lut.append({35,120,160,255});
+    // lut.append({25,35,185,255});
+    // lut.append({35,120,160,255});
+    // lut.append({50,155,125,255});
+    // lut.append({25,165,85,255});
+    // lut.append({160,217,153,255});
+    lut.append({250, 150, 150, 255});
+    lut.append({25, 0, 6, 255});
+    lut.append({250, 150, 150, 255});
 
-    Image tiling = GenImageColor(SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
-    DrawTiling(&tiling, tiles, lut, SCREEN_WIDTH, SCREEN_HEIGHT);
+    Image tiling = GenImageColor(IMG_WIDTH, IMG_HEIGHT, WHITE);
+    DrawTiling(&tiling, tiles, lut);
 
     Texture2D tilingtexture = LoadTextureFromImage(tiling);
+
+    PrintKeyboardCommands();
 
     while (!WindowShouldClose())
     {
@@ -49,7 +64,7 @@ int main(int argc, char ** argv)
         BeginDrawing();
             ClearBackground(WHITE);
 
-            DrawTexture(tilingtexture, 0, 0, WHITE);
+            DrawTextureEx(tilingtexture, {0, 0}, 0.0, 1.0 / SCALE, WHITE);
 
         EndDrawing();
     }
@@ -60,4 +75,13 @@ int main(int argc, char ** argv)
     UnloadTexture(tilingtexture);
 
     return 0;
+}
+
+
+void PrintKeyboardCommands()
+{
+    cout << "\n\n\n";
+    cout << "---------------------------------------------------\n";
+    cout << "| q                          Save Tiling To File. |\n";
+    cout << "---------------------------------------------------\n";
 }

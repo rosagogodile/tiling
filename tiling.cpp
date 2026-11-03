@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/13/2026                  *
- * Last Edited 10/28/2026              *
+ * Last Edited 11/3/2026               *
  * Implementation for tiling functions *
  ***************************************/
 
@@ -46,10 +46,14 @@ void DiamondTiling(std::vector<Tile> & tiles, float scalar, int32_t screen_width
 
     // initialize the tile 
     Tile BaseTile = SquareTile();
+    // BaseTile.Scale(scalar);
+    // Note: We want to scale the diagonal
+    const float DIAGONAL_SCALAR = scalar / sqrt(2);
+    BaseTile.Scale(DIAGONAL_SCALAR);
     BaseTile.Rotate(0.7853982); // 45 degree rotation 
-    BaseTile.Scale(scalar);
 
-    const float DIAGONAL = sqrt(2) * scalar;
+    // const float DIAGONAL = sqrt(2) * scalar;
+    const float DIAGONAL = scalar;
 
     const int32_t NUM_TILES_X = ceil((float)screen_width / DIAGONAL);
     const int32_t NUM_TILES_Y = ceil((float)screen_height / DIAGONAL);

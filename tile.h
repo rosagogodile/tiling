@@ -77,7 +77,7 @@ class Tile
 
 // function that draws a tiling into an image 
 // assumes each tile has a triangulation 
-void DrawTiling(Image * img, const std::vector<Tile> & tiles, ColorLut & lut, int32_t width, int32_t height);
+void DrawTiling(Image * img, const std::vector<Tile> & tiles, ColorLut & lut);
 
 
 // returns a unit square centered at (0,0)
