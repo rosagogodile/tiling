@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/27/2026                  *
- * Last Edited 10/27/2026              *
+ * Last Edited 11/3/2026               *
  * Class that defines a color lookup   *
  * table                               *
  ***************************************/
@@ -21,6 +21,7 @@ class ColorLut
         ColorLut(const std::vector<Color> & cl);
 
         void append(Color c);
+        void clear();
 
         size_t GetSize() const 
             { return size; }

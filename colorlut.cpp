@@ -1,6 +1,6 @@
 /***************************************
  * Created 10/27/2026                  *
- * Last Edited 10/27/2026              *
+ * Last Edited 11/3/2026               *
  * Implementation for color lookup     *
  * table                               *
  ***************************************/
@@ -32,6 +32,12 @@ void ColorLut::append(Color c)
 {
     colorlist.push_back(c);
     size++;
+}
+
+
+void ColorLut::clear()
+{
+    colorlist.clear();
 }
 
 
