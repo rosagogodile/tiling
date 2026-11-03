@@ -1,5 +1,5 @@
 # Created 10/12/2026
-# Last Edited 10/27/2026
+# Last Edited 11/3/2026
 
 TARGET := out
 
@@ -23,3 +23,4 @@ clean:
 	rm -f $(TARGET).exe
 	rm -f *.a
 	rm -f *.o
+	rm -f *.png

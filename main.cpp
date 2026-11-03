@@ -16,6 +16,7 @@ using namespace std;
 int main(int argc, char ** argv)
 {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "tiling experiment");
+    cout << "q                          Save Tiling To File.\n";
     SetTargetFPS(60);
 
     // initialize vector that stores each tile 
@@ -25,10 +26,9 @@ int main(int argc, char ** argv)
     DiamondTiling(tiles, 60, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     ColorLut lut;
-    lut.append({10,185,25,255});
+    lut.append({160,217,153,255});
     lut.append({25,165,85,255});
     lut.append({50,155,125,255});
-    lut.append({0,0,0,255});
     lut.append({35,120,160,255});
     lut.append({25,35,185,255});
 
@@ -39,6 +39,13 @@ int main(int argc, char ** argv)
 
     while (!WindowShouldClose())
     {
+        // save original image to file 
+        if (IsKeyPressed(KEY_Q))
+        {
+            ExportImage(tiling, "original_tiling.png");
+        }
+
+
         BeginDrawing();
             ClearBackground(WHITE);
 
