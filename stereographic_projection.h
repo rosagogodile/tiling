@@ -1,6 +1,6 @@
 /***************************************
  * Created 11/3/2026                   *
- * Last Edited 11/3/2026               *
+ * Last Edited 11/4/2026               *
  * Functions that define the           *
  * stereographic projection between    *
  * S^2 and R^2                         *
@@ -19,6 +19,7 @@
 #include "raymath.h"
 
 #include <cmath>
+#include <cstdint>
 
 
 inline Vector2 StereographicProjection(Vector3 sphere_coords)
@@ -33,5 +34,6 @@ inline Vector3 InverseStereographicProjection(Vector2 plane_coords)
             (-1 + pow(plane_coords.x, 2.0) + pow(plane_coords.y, 2.0)) / (1 + pow(plane_coords.x, 2.0) + pow(plane_coords.y, 2.0))};
 }
 
+void StereographicTransform(Image in, Image * out, int32_t w, int32_t h);
 
 #endif
