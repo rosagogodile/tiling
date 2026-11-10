@@ -1,6 +1,6 @@
 /***************************************
  * Created 11/3/2026                   *
- * Last Edited 11/4/2026               *
+ * Last Edited 11/10/2026              *
  * Functions that define the           *
  * stereographic projection between    *
  * S^2 and R^2                         *
@@ -34,6 +34,6 @@ inline Vector3 InverseStereographicProjection(Vector2 plane_coords)
             (-1 + pow(plane_coords.x, 2.0) + pow(plane_coords.y, 2.0)) / (1 + pow(plane_coords.x, 2.0) + pow(plane_coords.y, 2.0))};
 }
 
-void StereographicTransform(Image in, Image * out, int32_t w, int32_t h);
+void StereographicTransform(Image in, Image * out, int32_t w_i, int32_t h_i, int32_t w_o, int32_t h_o);
 
 #endif

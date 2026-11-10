@@ -1,12 +1,13 @@
 /***************************************
  * Created 10/12/2026                  *
- * Last Edited 11/3/2026               *
+ * Last Edited 11/10/2026              *
  * Code that renders the tiling        *
  ***************************************/
 
 #include <iostream>
 #include "tile.h"
 #include "colorlut.h"
+#include "stereographic_projection.h"
 
 #define IMG_WIDTH 3840
 #define IMG_HEIGHT 3840
@@ -60,6 +61,18 @@ int main(int argc, char ** argv)
             ExportImage(tiling, "original_tiling.png");
         }
 
+        // stereographic transform
+        if (IsKeyPressed(KEY_ONE))
+        {
+            Image out = GenImageColor(IMG_WIDTH, IMG_HEIGHT, {0,67,0,255});
+            StereographicTransform(tiling, &out, IMG_WIDTH, IMG_HEIGHT, IMG_WIDTH, IMG_HEIGHT);
+            UnloadImage(tiling);
+            tiling = ImageCopy(out);
+            UnloadImage(out);
+            UnloadTexture(tilingtexture);
+            tilingtexture = LoadTextureFromImage(tiling);
+        }
+
 
         BeginDrawing();
             ClearBackground(WHITE);
@@ -83,5 +96,6 @@ void PrintKeyboardCommands()
     cout << "\n\n\n";
     cout << "---------------------------------------------------\n";
     cout << "| q                          Save Tiling To File. |\n";
+    cout << "| 1                     Stereographic Projection. |\n";
     cout << "---------------------------------------------------\n";
 }

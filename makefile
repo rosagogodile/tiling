@@ -1,9 +1,9 @@
 # Created 10/12/2026
-# Last Edited 11/3/2026
+# Last Edited 11/10/2026
 
 TARGET := out
 
-CPP_FILES := tile.cpp colorlut.cpp tiling.cpp main.cpp
+CPP_FILES := tile.cpp colorlut.cpp tiling.cpp stereographic_projection.cpp main.cpp 
 
 LINKED_LIBS := -lraylib -lopengl32 -lgdi32 -lwinmm
 VERSION := -std=c++23
