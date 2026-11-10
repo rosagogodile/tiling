@@ -33,18 +33,8 @@ int main(int argc, char ** argv)
     DiamondTiling(tiles, 60 * SCALE, IMG_WIDTH, IMG_HEIGHT);
 
     ColorLut lut;
-    // lut.append({160,217,153,255});
-    // lut.append({25,165,85,255});
-    // lut.append({50,155,125,255});
-    // lut.append({35,120,160,255});
-    // lut.append({25,35,185,255});
-    // lut.append({35,120,160,255});
-    // lut.append({50,155,125,255});
-    // lut.append({25,165,85,255});
-    // lut.append({160,217,153,255});
-    lut.append({250, 150, 150, 255});
-    lut.append({25, 0, 6, 255});
-    lut.append({250, 150, 150, 255});
+    lut.append({160,217,153,255});
+    lut.append({25,35,185,255});
 
     Image tiling = GenImageColor(IMG_WIDTH, IMG_HEIGHT, WHITE);
     DrawTiling(&tiling, tiles, lut);
@@ -59,6 +49,19 @@ int main(int argc, char ** argv)
         if (IsKeyPressed(KEY_Q))
         {
             ExportImage(tiling, "original_tiling.png");
+        }
+
+        // load test image 
+        if (IsKeyPressed(KEY_P))
+        {
+            UnloadImage(tiling);
+
+            // unsafely assume image exists :)
+            tiling = LoadImage("test.png");
+            ImageResize(&tiling, IMG_WIDTH, IMG_HEIGHT);
+
+            UnloadTexture(tilingtexture);
+            tilingtexture = LoadTextureFromImage(tiling);
         }
 
         // stereographic transform
@@ -96,6 +99,7 @@ void PrintKeyboardCommands()
     cout << "\n\n\n";
     cout << "---------------------------------------------------\n";
     cout << "| q                          Save Tiling To File. |\n";
+    cout << "| p                 Load test image @ \"test.png\". |\n";
     cout << "| 1                     Stereographic Projection. |\n";
     cout << "---------------------------------------------------\n";
 }

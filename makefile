@@ -23,4 +23,3 @@ clean:
 	rm -f $(TARGET).exe
 	rm -f *.a
 	rm -f *.o
-	rm -f *.png
